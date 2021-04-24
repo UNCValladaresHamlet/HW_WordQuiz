@@ -1,3 +1,15 @@
+/* // GIVEN I am taking a code quiz
+// WHEN I click the start button
+// THEN a timer starts and I am presented with a question
+// WHEN I answer a question
+// THEN I am presented with another question
+// WHEN I answer a question incorrectly
+// THEN time is subtracted from the clock
+// WHEN all questions are answered or the timer reaches 0
+// THEN the game is over
+// WHEN the game is over
+// THEN I can save my initials and my score */
+
 body{
     background-color: #b3cdd1;
     background-image: linear-gradient(315deg, #b3cdd1 0%, #9fa4c4 74%);
@@ -15,4 +27,24 @@ body{
     width: 400px;
     padding: 100px 50px;    
 }
+
+.btnclass{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn{
+    font-size:16px;
+    padding: 8px;
+}
+
+.nav-bar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    list-style-type: none;
+    padding: 30px;
+}
+
+
 
