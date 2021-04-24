@@ -81,17 +81,24 @@ var btn2 = document.getElementById("btn2");
 var btn3 = document.getElementById("btn3");
 var btn4 = document.getElementById("btn4");
 
+var finalQuestionIndex = quizQuestions.length;
 var questionIndex = 0;
 
+loadQuestions();
+
+// Function to load questions in object
 function loadQuestions() {
- var questionPresented = quizQuestions[questionIndex];
+
+ var currentQuestion = quizQuestions[questionIndex]; 
  var questiondisplayEl = document.getElementById("question-display");
  
- questiondisplayEl.innerText = questionPresented.question;  
- btn1.innerText = questionPresented.choices[0];
- btn2.innerText = questionPresented.choices[1];
- btn3.innerText = questionPresented.choices[2];
- btn4.innerText = questionPresented.choices[3];
-//  console.log("questionPresented:", questionPresented);
+ questiondisplayEl.innerText = currentQuestion.question;  
+ btn1.innerText = currentQuestion.choices[0];
+ btn2.innerText = currentQuestion.choices[1];
+ btn3.innerText = currentQuestion.choices[2];
+ btn4.innerText = currentQuestion.choices[3]; //Answer buttons now have options from the choice array in the object
+
+questionIndex++;
+console.log("questionIndex:", questionIndex)
 }
 
