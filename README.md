@@ -29,3 +29,6 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score
 ```
+
+## URL Link to Quiz 
+https://uncvalladareshamlet.github.io/HW_WordQuiz/
