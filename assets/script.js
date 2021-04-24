@@ -1,12 +1,3 @@
-//Build Quiz and show results
-//1.Have a welcoming page explaining the objective of the quiz
-//2.This welcoming page should also store high scores for the users who have played
-//3.It also has a timer that will start once the user clicks "start quiz"
-//4.Once the timer is started, The questions and answers are presented
-//5.If a user picks the correct answer, then points will be ADDED to the kept score
-//6.If a user picks the wrong answer, then time will be subtracted from the timer
-//7.When the game is over or the time reaches zero, it presents the user their final score and a option to play again
-//8.When the final score is shown, the app gives the user an option to save their score in 'HIGHSCORES' using their initials 
 //// 1.variables to keep track of quiz state
 //// 2.variables to reference DOM elements
 //// 3.hide start screen
@@ -38,61 +29,69 @@
 //// 29.user clicks button to submit initials
 //// 30.user clicks button to start quiz
 
-// variables to keep track of quiz state
-var currentQuestionIndex = 0;
-var time = questions.length * 15;
-var timerId;
+// Object of all questions and answer choices
+var quizQuestions = [
+    {
+      question: "Commonly used data types DO NOT include:",
+      choices: ["strings", "booleans", "alerts", "numbers"],
+      answer: "alerts"
+    },
+    {
+      question: "The condition in an if / else statement is enclosed within ____.",
+      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+      answer: "parentheses"
+    },
+    {
+      question: "Arrays in JavaScript can be used to store ____.",
+      choices: [
+        "numbers and strings",
+        "other arrays",
+        "booleans",
+        "all of the above"
+      ],
+      answer: "all of the above"
+    },
+    {
+      question:
+        "String values must be enclosed within ____ when being assigned to variables.",
+      choices: ["commas", "curly brackets", "quotes", "parentheses"],
+      answer: "quotes"
+    },
+    {
+      question:
+        "A very useful tool used during development and debugging for printing content to the debugger is:",
+      choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
+      answer: "console.log"
+    }
+  ];
 
 // variables to reference DOM elements
-var questionsEl = document.getElementById("questions");
+var questionsEl = document.getElementById("question-container");
 var timerEl = document.getElementById("time");
-var choicesEl = document.getElementById("choices");
-var submitBtn = document.getElementById("submit");
-var startBtn = document.getElementById("start");
+var choicesEl = document.getElementById("answer-btns");
+var submitBtn = document.getElementById("submit-btn");
+var startBtn = document.getElementById("start-btn");
 var initialsEl = document.getElementById("initials");
-var feedbackEl = document.getElementById("feedback");
+// var feedbackEl = document.getElementById("feedback");
 
+// startBtn.addEventListener('click', startQuestions)
 
-var gameQuestions = [
-    {
-        question: 'Commonly used Data Types do not include:',
-        choice1: 'Strings',
-        choice2: 'Booleans',
-        choice3: 'Alerts',
-        choice4: 'Numbers',
-        correctAnswer: 3
-    },
-    {
-        question: 'The condition in an if/else statement is enclosed within _______.',
-        choice1: 'Quotes',
-        choice2: 'Curly brackets',
-        choice3: 'Paranthesis',
-        choice4: 'Square brackets',
-        correctAnswer: 3
-    },
-    {
-        question: 'Arrays in JavaScript can be used to store _____.',
-        choice1: 'Numbers and strings',
-        choice2: 'Other Arrays',
-        choice3: 'Booleans',
-        choice4: 'All the above',
-        correctAnswer: 4
-    },
-    {
-        question: 'String values must be enclosed within _______ when being assigned to variables.',
-        choice1: 'Commas',
-        choice2: 'Curly brackets',
-        choice3: 'Quotes',
-        choice4: 'Parenthesis',
-        correctAnswer: 3
-    },
-    {
-        question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
-        choice1: 'Javascript',
-        choice2: 'Terminal/bash',
-        choice3: 'For loops',
-        choice4: 'Console.log',
-        correctAnswer: 4
-    }
-];
+var btn1 = document.getElementById("btn1");
+var btn2 = document.getElementById("btn2");
+var btn3 = document.getElementById("btn3");
+var btn4 = document.getElementById("btn4");
+
+var questionIndex = 0;
+
+function loadQuestions() {
+ var questionPresented = quizQuestions[questionIndex];
+ var questiondisplayEl = document.getElementById("question-display");
+ 
+ questiondisplayEl.innerText = questionPresented.question;  
+ btn1.innerText = questionPresented.choices[0];
+ btn2.innerText = questionPresented.choices[1];
+ btn3.innerText = questionPresented.choices[2];
+ btn4.innerText = questionPresented.choices[3];
+//  console.log("questionPresented:", questionPresented);
+}
 
