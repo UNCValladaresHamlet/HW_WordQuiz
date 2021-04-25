@@ -20,13 +20,13 @@ body{
     min-height: 100vh;
 }
 
-#question-container {
+#question-container, .container2 {
     /* display:none; */
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px;
     width: 400px;
-    padding: 100px 50px;    
+    padding: 100px 50px;
 }
 
 .hide{

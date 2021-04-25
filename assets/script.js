@@ -29,7 +29,7 @@
 //// 29.user clicks button to submit initials
 //// 30.user clicks button to start quiz
 
-// Object of all questions and answer choices
+// Object of all questions/choices and answers
 var quizQuestions = [
     {
       question: "Commonly used data types DO NOT include:",
@@ -83,7 +83,7 @@ var btn4 = document.getElementById("btn4");
 
 
 var questionIndex = 0; //Index is assigned/set to zero (later in LoadQuestions Function)
-var timeLeft = 75; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
+var timeLeft = 10; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
 var currentQuestion; //Used later in loadQuestions function
 
 startBtn.addEventListener("click", beginQuiz); 
@@ -91,11 +91,12 @@ startBtn.addEventListener("click", beginQuiz);
 //Timer Starts and user is presented with a question
 
 function beginQuiz() {  
-  timerEl.textContent = timeLeft; //Timer element is assigned 76 seconds by timeLeft variable.
-  setInterval(function() { //TIMER 
+  timerEl.textContent = timeLeft; //Timer element is assigned 75 seconds by timeLeft variable.
+  timer = setInterval(function() { //TIMER 
     timeLeft--; //timeLeft 75 Decrements by 1
     timerEl.textContent = timeLeft; 
   } , 1000); //1000 milliseconds = 1 sec
+
   var startEl = document.getElementById("start"); 
   startEl.setAttribute("class", "hide"); //hide start screen
   questionsEl.removeAttribute("class"); //show questions
@@ -105,25 +106,24 @@ function beginQuiz() {
 // Function to load questions from object
 function loadQuestions() {
   
- currentQuestion = quizQuestions[questionIndex]; //Variable to reference
+ currentQuestion = quizQuestions[questionIndex]; //Variable reference to first question in quizQuestions
  var questiondisplayEl = document.getElementById("question-display");
  
-  questiondisplayEl.innerText = currentQuestion.question;  //changes HTML text element
-  btn1.innerText = currentQuestion.choices[0];
+  questiondisplayEl.innerText = currentQuestion.question;  //changes HTML text element to first question
+  btn1.innerText = currentQuestion.choices[0]; 
   btn2.innerText = currentQuestion.choices[1];
   btn3.innerText = currentQuestion.choices[2];
-  btn4.innerText = currentQuestion.choices[3]; //Answer buttons now have options from the choice array in the quizQuestions
+  btn4.innerText = currentQuestion.choices[3]; //Answer buttons now have the options from the choice array in the quizQuestions
 
   questionIndex++; //Index increments by 1 going through each question in the quizQuestions
-  console.log("questionIndex:",questionIndex);
-  
+   
 }
 
 btn1.addEventListener("click", function() {  
   if (currentQuestion.choices[0] !== currentQuestion.answer) { //Answer gets validated if clicked. If is NOT the same answer
     timeLeft -= 10; //subtract 10 seconds from timeLeft
   } 
-  if (questionIndex < quizQuestions.length) { //Will bring up questions until index is 4 which is the length of the quizQuestions
+  if (questionIndex < quizQuestions.length) { //Will bring up questions until current question index is greater than 4 (length of quizQuestions)
     loadQuestions();
   } else {
     quizEnds();
@@ -165,9 +165,12 @@ btn4.addEventListener("click", function() {
 })
 
 function quizEnds() {
-
-
+  // (timeLeft === 0 || questionIndex === 5)
+  clearInterval(timer)
+  if (questionIndex === 5) {                     
+    var endEl = document.getElementById("end-screen"); 
+    questionsEl.setAttribute("class", "hide"); //hide start screen
+    endEl.removeAttribute("class"); 
+  }
+  
 }
-
-
-
