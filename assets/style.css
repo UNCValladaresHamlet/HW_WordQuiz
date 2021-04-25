@@ -21,6 +21,7 @@ body{
 }
 
 #question-container {
+    /* display:none; */
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px;
@@ -28,13 +29,16 @@ body{
     padding: 100px 50px;    
 }
 
+.hide{
+    display:none;
+}
 
 .hidefornow{
     display:none;
 }
 
 .start-class {
-    display:none;
+    /* display:none; */
     text-align: center;
 }
 

@@ -85,7 +85,8 @@ var finalQuestionIndex = quizQuestions.length;
 var questionIndex = 0;
 var timeLeft = 76;
 
-startBtn.addEventListener("click", beginQuiz);
+startBtn.addEventListener("click", beginQuiz); 
+//Event-Listener for start button so it can begin quiz
 
 function beginQuiz() {
   timerEl.textContent = timeLeft;
@@ -93,12 +94,11 @@ function beginQuiz() {
     timeLeft--;
     timerEl.textContent = timeLeft;
   } , 1000);
-  var startEl = document.getElementById("start");
-  startEl.setAttribute("class", "hide");
-  questionEl.removeAttribute("class");
+  var startEl = document.getElementById("start"); 
+  startEl.setAttribute("class", "hide"); //hide start screen
+  questionsEl.removeAttribute("class"); //show questions
   loadQuestions();   
 }
-
 
 // Function to load questions in object
 function loadQuestions() {
@@ -106,41 +106,57 @@ function loadQuestions() {
  var currentQuestion = quizQuestions[questionIndex]; 
  var questiondisplayEl = document.getElementById("question-display");
  
- questiondisplayEl.innerText = currentQuestion.question;  
- btn1.innerText = currentQuestion.choices[0];
- btn2.innerText = currentQuestion.choices[1];
- btn3.innerText = currentQuestion.choices[2];
- btn4.innerText = currentQuestion.choices[3]; //Answer buttons now have options from the choice array in the object
+  questiondisplayEl.innerText = currentQuestion.question;  
+  btn1.innerText = currentQuestion.choices[0];
+  btn2.innerText = currentQuestion.choices[1];
+  btn3.innerText = currentQuestion.choices[2];
+  btn4.innerText = currentQuestion.choices[3]; //Answer buttons now have options from the choice array in the object
 
-questionIndex++;
-console.log("questionIndex:", questionIndex)
-
+  questionIndex++;  
+  
 }
 
 btn1.addEventListener("click", function() {
-  if (choices === answer) {
+  if (currentQuestion.choices[0] !== currentQuestion.answer) {
+    timeLeft -= 10; 
+  } 
+  if (questionIndex < currentQuestion.length) {
     loadQuestions();
   } else {
-    timeLeft -= 10;
-
-
+    quizEnds();
   }
-  
-  loadQuestions()
 })
 
 btn2.addEventListener("click", function() {
-  // comparing their answer to the choices
-  loadQuestions()
+  if (currentQuestion.choices[1] !== currentQuestion.answer) {
+    timeLeft -= 10; 
+  } 
+  if (questionIndex < currentQuestion.length) {
+    loadQuestions();
+  } else {
+    quizEnds();
+  }
 })
 
 btn3.addEventListener("click", function() {
-  // comparing their answer to the choices
-  loadQuestions()
+  if (currentQuestion.choices[2] !== currentQuestion.answer) {
+    timeLeft -= 10; 
+  } 
+  if (questionIndex < currentQuestion.length) {
+    loadQuestions();
+  } else {
+    quizEnds();
+  }
 })
 
 btn4.addEventListener("click", function() {
-  // comparing their answer to the choices
-  loadQuestions()
+  if (currentQuestion.choices[3] !== currentQuestion.answer) {
+    timeLeft -= 10; 
+  } 
+  if (questionIndex < currentQuestion.length) {
+    loadQuestions();
+  } else {
+    quizEnds();
+  }
 })
 
