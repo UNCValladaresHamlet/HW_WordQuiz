@@ -83,8 +83,22 @@ var btn4 = document.getElementById("btn4");
 
 var finalQuestionIndex = quizQuestions.length;
 var questionIndex = 0;
+var timeLeft = 76;
 
-loadQuestions();
+startBtn.addEventListener("click", beginQuiz);
+
+function beginQuiz() {
+  timerEl.textContent = timeLeft;
+  setInterval(function() {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+  } , 1000);
+  var startEl = document.getElementById("start");
+  startEl.setAttribute("class", "hide");
+  questionEl.removeAttribute("class");
+  loadQuestions();   
+}
+
 
 // Function to load questions in object
 function loadQuestions() {
@@ -100,5 +114,33 @@ function loadQuestions() {
 
 questionIndex++;
 console.log("questionIndex:", questionIndex)
+
 }
+
+btn1.addEventListener("click", function() {
+  if (choices === answer) {
+    loadQuestions();
+  } else {
+    timeLeft -= 10;
+
+
+  }
+  
+  loadQuestions()
+})
+
+btn2.addEventListener("click", function() {
+  // comparing their answer to the choices
+  loadQuestions()
+})
+
+btn3.addEventListener("click", function() {
+  // comparing their answer to the choices
+  loadQuestions()
+})
+
+btn4.addEventListener("click", function() {
+  // comparing their answer to the choices
+  loadQuestions()
+})
 
