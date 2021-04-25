@@ -81,9 +81,10 @@ var btn2 = document.getElementById("btn2");
 var btn3 = document.getElementById("btn3");
 var btn4 = document.getElementById("btn4");
 
-var finalQuestionIndex = quizQuestions.length;
+
 var questionIndex = 0;
 var timeLeft = 76;
+var currentQuestion;
 
 startBtn.addEventListener("click", beginQuiz); 
 //Event-Listener for start button so it can begin quiz
@@ -102,8 +103,8 @@ function beginQuiz() {
 
 // Function to load questions in object
 function loadQuestions() {
-
- var currentQuestion = quizQuestions[questionIndex]; 
+  console.log("loadQuestions:");
+ currentQuestion = quizQuestions[questionIndex]; 
  var questiondisplayEl = document.getElementById("question-display");
  
   questiondisplayEl.innerText = currentQuestion.question;  
@@ -113,6 +114,7 @@ function loadQuestions() {
   btn4.innerText = currentQuestion.choices[3]; //Answer buttons now have options from the choice array in the object
 
   questionIndex++;  
+  console.log("questionIndex:",questionIndex);
   
 }
 
@@ -120,10 +122,11 @@ btn1.addEventListener("click", function() {
   if (currentQuestion.choices[0] !== currentQuestion.answer) {
     timeLeft -= 10; 
   } 
-  if (questionIndex < currentQuestion.length) {
+  if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
     quizEnds();
+    
   }
 })
 
@@ -131,7 +134,7 @@ btn2.addEventListener("click", function() {
   if (currentQuestion.choices[1] !== currentQuestion.answer) {
     timeLeft -= 10; 
   } 
-  if (questionIndex < currentQuestion.length) {
+  if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
     quizEnds();
@@ -142,7 +145,7 @@ btn3.addEventListener("click", function() {
   if (currentQuestion.choices[2] !== currentQuestion.answer) {
     timeLeft -= 10; 
   } 
-  if (questionIndex < currentQuestion.length) {
+  if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
     quizEnds();
@@ -153,10 +156,17 @@ btn4.addEventListener("click", function() {
   if (currentQuestion.choices[3] !== currentQuestion.answer) {
     timeLeft -= 10; 
   } 
-  if (questionIndex < currentQuestion.length) {
+  if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
     quizEnds();
   }
 })
+
+function quizEnds() {
+
+
+}
+
+
 
