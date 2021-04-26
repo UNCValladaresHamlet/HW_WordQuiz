@@ -69,9 +69,10 @@ var quizQuestions = [
 var questionsEl = document.getElementById("question-container");
 var timerEl = document.getElementById("time");
 var choicesEl = document.getElementById("answer-btns");
-var submitBtn = document.getElementById("submit-btn");
+var submitscoreBtn = document.getElementById("submitscore-btn");
 var startBtn = document.getElementById("start-btn");
-var initialsEl = document.getElementById("initials");
+var initialsEl = document.getElementById("user-initials");
+var endScoreEl = document.getElementById("end-score");
 // var feedbackEl = document.getElementById("feedback");
 
 // startBtn.addEventListener('click', startQuestions)
@@ -85,6 +86,7 @@ var btn4 = document.getElementById("btn4");
 var questionIndex = 0; //Index is assigned/set to zero (later in LoadQuestions Function)
 var timeLeft = 10; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
 var currentQuestion; //Used later in loadQuestions function
+var timerInterval;
 
 startBtn.addEventListener("click", beginQuiz); 
 //Event-Listener for start button so user can begin quiz.
@@ -92,7 +94,7 @@ startBtn.addEventListener("click", beginQuiz);
 
 function beginQuiz() {  
   timerEl.textContent = timeLeft; //Timer element is assigned 75 seconds by timeLeft variable.
-  timer = setInterval(function() { //TIMER 
+  timerInterval = setInterval(function() { //TIMER 
     timeLeft--; //timeLeft 75 Decrements by 1
     timerEl.textContent = timeLeft; 
   } , 1000); //1000 milliseconds = 1 sec
@@ -126,7 +128,7 @@ btn1.addEventListener("click", function() {
   if (questionIndex < quizQuestions.length) { //Will bring up questions until current question index is greater than 4 (length of quizQuestions)
     loadQuestions();
   } else {
-    quizEnds();
+    endsQuiz();
     
   }
 })
@@ -138,7 +140,7 @@ btn2.addEventListener("click", function() {
   if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
-    quizEnds();
+    endsQuiz();
   }
 })
 
@@ -149,7 +151,7 @@ btn3.addEventListener("click", function() {
   if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
-    quizEnds();
+    endsQuiz();
   }
 })
 
@@ -160,17 +162,49 @@ btn4.addEventListener("click", function() {
   if (questionIndex < quizQuestions.length) {
     loadQuestions();
   } else {
-    quizEnds();
+    endsQuiz();
   }
 })
 
-function quizEnds() {
+function endsQuiz() {
   // (timeLeft === 0 || questionIndex === 5)
-  clearInterval(timer)
-  if (questionIndex === 5) {                     
-    var endEl = document.getElementById("end-screen"); 
+  
+  if (questionIndex === 5) {                      
+    var endEl = document.getElementById("end-screen"); //defined var to be used in if statement
     questionsEl.setAttribute("class", "hide"); //hide start screen
-    endEl.removeAttribute("class"); 
+    endEl.removeAttribute("class");  //shows end screen
   }
+  // if (timeLeft <= 0) {
+  //   clearInterval(timerInterval);
+  // }
+  
+  endScoreEl.textContent = timeLeft;
   
 }
+// eventlistener to submit the user's initials to the highscores
+submitscoreBtn.addEventListener("click", function highscore() {
+
+  var initialsUser = initialsEl.value; //assigns the user's initials (ex:HV)
+  if (initialsUser === "") { //If initials is left empty then return an alert
+    alert("Initials cannot be left empty");
+    return false
+  } else{ //If not then place them into the local storage
+      // var highscores = initialsUser;
+      console.log("initialsUser:", initialsUser)
+      savedhighscores = JSON.parse(window.localStorage.getItem("finalscores")) || []; // get saved scores from localstorage, or if not any, set to empty array
+      console.log("finalscores:", savedhighscores) 
+        var savedScore = { //new score object for current user
+          Finalscore: timeLeft,
+          Initials: initialsUser
+        };
+        // save to localstorage
+        savedhighscores.push(savedScore);
+        window.localStorage.setItem("finalscores", JSON.stringify(savedhighscores));
+  }
+
+
+  console.log("submitBtn:",submitscoreBtn)
+  window.location.replace("./highscores.html")
+  
+});
+
