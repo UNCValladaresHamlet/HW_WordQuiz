@@ -1,4 +1,6 @@
 # HW_WordQuiz
+<img width="942" alt="front page" src="https://user-images.githubusercontent.com/80364592/116334989-201a4600-a7a4-11eb-9e15-ef671c540196.PNG">
+
 
 ## Your Task
 At some point in your journey to become a full-stack web developer, you’ll likely be asked to complete a coding assessment—perhaps as part of an interview process. A typical coding assessment includes both multiple-choice questions and interactive coding challenges.
