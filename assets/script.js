@@ -189,10 +189,8 @@ submitscoreBtn.addEventListener("click", function highscore() {
     alert("Initials cannot be left empty");
     return false
   } else{ //If not then place them into the local storage
-      // var highscores = initialsUser;
-      console.log("initialsUser:", initialsUser)
+            
       savedhighscores = JSON.parse(window.localStorage.getItem("finalscores")) || []; // get saved scores from localstorage, or if not any, set to empty array
-      console.log("finalscores:", savedhighscores) 
         var savedScore = { //new score object for current user
           Finalscore: timeLeft,
           Initials: initialsUser
@@ -201,7 +199,6 @@ submitscoreBtn.addEventListener("click", function highscore() {
         savedhighscores.push(savedScore);
         window.localStorage.setItem("finalscores", JSON.stringify(savedhighscores));
   }
-
 
   console.log("submitBtn:",submitscoreBtn)
   window.location.replace("./highscores.html")
