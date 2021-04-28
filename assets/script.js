@@ -84,7 +84,7 @@ var btn4 = document.getElementById("btn4");
 
 
 var questionIndex = 0; //Index is assigned/set to zero (later in LoadQuestions Function)
-var timeLeft = 10; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
+var timeLeft = 30; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
 var currentQuestion; //Used later in loadQuestions function
 var timerInterval;
 
@@ -96,9 +96,15 @@ function beginQuiz() {
   timerEl.textContent = timeLeft; //Timer element is assigned 75 seconds by timeLeft variable.
   timerInterval = setInterval(function() { //TIMER 
     timeLeft--; //timeLeft 75 Decrements by 1
+    if (timeLeft < 0) {
+      timeLeft = 0;
+      timerInterval = 0;
+      timerEl.textContent = timeLeft; 
+      endsQuiz();
+    }
     timerEl.textContent = timeLeft; 
   } , 1000); //1000 milliseconds = 1 sec
-
+  
   var startEl = document.getElementById("start"); 
   startEl.setAttribute("class", "hide"); //hide start screen
   questionsEl.removeAttribute("class"); //show questions
@@ -124,6 +130,10 @@ function loadQuestions() {
 btn1.addEventListener("click", function() {  
   if (currentQuestion.choices[0] !== currentQuestion.answer) { //Answer gets validated if clicked. If is NOT the same answer
     timeLeft -= 10; //subtract 10 seconds from timeLeft
+    if (timeLeft < 0) {
+      timeLeft = 0;
+      endsQuiz();
+    }
   } 
   if (questionIndex < quizQuestions.length) { //Will bring up questions until current question index is greater than 4 (length of quizQuestions)
     loadQuestions();
@@ -136,6 +146,10 @@ btn1.addEventListener("click", function() {
 btn2.addEventListener("click", function() {
   if (currentQuestion.choices[1] !== currentQuestion.answer) {
     timeLeft -= 10; 
+    if (timeLeft < 0) {
+      timeLeft = 0;
+      endsQuiz();
+    }
   } 
   if (questionIndex < quizQuestions.length) {
     loadQuestions();
@@ -147,6 +161,10 @@ btn2.addEventListener("click", function() {
 btn3.addEventListener("click", function() {
   if (currentQuestion.choices[2] !== currentQuestion.answer) {
     timeLeft -= 10; 
+    if (timeLeft < 0) {
+      timeLeft = 0;
+      endsQuiz();
+    }
   } 
   if (questionIndex < quizQuestions.length) {
     loadQuestions();
@@ -158,6 +176,10 @@ btn3.addEventListener("click", function() {
 btn4.addEventListener("click", function() {
   if (currentQuestion.choices[3] !== currentQuestion.answer) {
     timeLeft -= 10; 
+    if (timeLeft < 0) {
+      timeLeft = 0;
+      endsQuiz();
+    }
   } 
   if (questionIndex < quizQuestions.length) {
     loadQuestions();
@@ -167,19 +189,15 @@ btn4.addEventListener("click", function() {
 })
 
 function endsQuiz() {
-  // (timeLeft === 0 || questionIndex === 5)
-  
-  if (questionIndex === 5) {                      
+  timerEl.textContent = timeLeft;
+  clearInterval(timerInterval);
+   
+  if (timeLeft === 0 || questionIndex === 5) {                      
     var endEl = document.getElementById("end-screen"); //defined var to be used in if statement
     questionsEl.setAttribute("class", "hide"); //hide start screen
     endEl.removeAttribute("class");  //shows end screen
-  }
-  // if (timeLeft <= 0) {
-  //   clearInterval(timerInterval);
-  // }
-  
-  endScoreEl.textContent = timeLeft;
-  
+  }  
+  endScoreEl.textContent = timeLeft;  
 }
 // eventlistener to submit the user's initials to the highscores
 submitscoreBtn.addEventListener("click", function highscore() {
