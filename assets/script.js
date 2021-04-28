@@ -84,7 +84,7 @@ var btn4 = document.getElementById("btn4");
 
 
 var questionIndex = 0; //Index is assigned/set to zero (later in LoadQuestions Function)
-var timeLeft = 30; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
+var timeLeft = 75; //timeLeft is assigned/set to be 75 (75 seconds later in the TIMER) 
 var currentQuestion; //Used later in loadQuestions function
 var timerInterval;
 
